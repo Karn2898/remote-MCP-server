@@ -1,0 +1,19 @@
+[project]
+name = "remote-mcp-server-1"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Tamaghna Sarkar", email = "tamaghna51@gmail.com" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "fastmcp>=3.4.7",
+]
+
+[project.scripts]
+remote-mcp-server-1 = "remote_mcp_server_1:main"
+
+[build-system]
+requires = ["uv_build>=0.12.3,<0.13.0"]
+build-backend = "uv_build"
