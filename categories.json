@@ -1,0 +1,10 @@
+{
+  "Food & Dining": ["Groceries", "Restaurants", "Coffee", "Snacks"],
+  "Transportation": ["Fuel", "Public Transit", "Parking", "Ride Share"],
+  "Shopping": ["Electronics", "Clothing", "Home Goods"],
+  "Housing": ["Rent", "Utilities", "Maintenance"],
+  "Entertainment": ["Movies", "Games", "Subscriptions"],
+  "Healthcare": ["Doctor", "Pharmacy", "Gym"],
+  "Education": ["Books", "Courses", "Tuition"],
+  "Travel": ["Flights", "Hotels", "Transport"]
+}
