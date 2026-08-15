@@ -21,6 +21,7 @@ def server_info():
         "name":"calculator",
         "version":"1.0.0",
         "description":"A simple calculator server that can add numbers and generate random numbers.",
+        "tools":["add","random_number"],
         "author":"Tamaghna "
         
     }
