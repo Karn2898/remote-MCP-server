@@ -1,33 +1,57 @@
-try:
-    from fastmcp import FastMCP
-except ImportError:
-    from mcp.server.fastmcp import FastMCP
-import random
+from fastmcp import FastMCP
+import os
+import sqlite3
 import json
 
-mcp = FastMCP("simple calculator server")
+DB_PATH=os.path.join(os.path.dirname(__file__), "expense.db")
+CATEGORIES_PATH=os.path.join(os.path.dirname(__file__), "categories.json")
+mcp=FastMCP("ExpenseTracker")
+
+with open(CATEGORIES_PATH, "r") as f:
+    CATEGORIES = json.load(f)
+
+def init_db():
+    with sqlite3.connect(DB_PATH) as c :
+        c.execute(""" 
+                   CREATE TABLE IF NOT EXISTS expenses (
+                       id INTEGER PRIMARY KEY AUTOINCREMENT,
+                       date TEXT NOT NULL,
+                       description TEXT NOT NULL,
+                       amount REAL NOT NULL,
+                       category TEXT NOT NULL,
+                       subcategory TEXT DEFAULT '',
+                       note TEXT DEFAULT ''
+                   )
+                   """)
+
+def main():
+    init_db()
+  
+
+
 
 @mcp.tool()
-def add(a: int, b: int):
-    """Add two numbers"""
-    return a + b
-
+def list_expenses():
+    '''List all expenses in the database'''
+    with sqlite3.connect(DB_PATH) as c:
+        cur=c.execute("SELECT id, date, description, amount, category, subcategory, note FROM expenses ORDER BY id ASC")
+        cols=[d[0] for d in cur.description]
+        return [dict(zip (cols,r )) for r in cur.fetchall()]
 @mcp.tool()
-def random_number(min: int = 1, max: int = 100):
-    """Generate a random number between min and max"""
-    return random.randint(min, max)
-
-@mcp.resource("info://server")
-def server_info():
-    info = {
-        "name": "calculator",
-        "version": "1.0.0",
-        "description": "A simple calculator server that can add numbers and generate random numbers.",
-        "tools": ["add", "random_number"],
-        "author": "Tamaghna"
-    }
-    return json.dumps(info, indent=2)
-
+def add_expense(date, description, amount, category, subcategory="", note=""):
+    if category not in CATEGORIES:
+        raise ValueError(f"Invalid category: {category}")
+    if subcategory and subcategory not in CATEGORIES[category]:
+        raise ValueError(f"Invalid subcategory: {subcategory} for category {category}")
+    with sqlite3.connect(DB_PATH) as c:
+        cur = c.execute(
+            "INSERT INTO expenses (date, description, amount, category, subcategory, note) VALUES (?, ?, ?, ?, ?, ?)",
+            (date, description, amount, category, subcategory, note)
+        )
+        c.commit()
+    return {"status":"ok","id":cur.lastrowid}
+    
 
 if __name__ == "__main__":
     mcp.run(transport="http", host="0.0.0.0", port=8000)
+    
