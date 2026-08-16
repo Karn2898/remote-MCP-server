@@ -8,6 +8,7 @@ authors = [
 ]
 requires-python = ">=3.14"
 dependencies = [
+    "aiosqlite>=0.22.1",
     "fastmcp>=3.4.7",
 ]
 
@@ -17,3 +18,8 @@ remote-mcp-server-1 = "remote_mcp_server_1:main"
 [build-system]
 requires = ["uv_build>=0.12.3,<0.13.0"]
 build-backend = "uv_build"
+
+[tool.uv.workspace]
+members = [
+    "proxy server",
+]
