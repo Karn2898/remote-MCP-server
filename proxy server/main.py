@@ -3,8 +3,8 @@ import os
 
 
 mcp = FastMCP.as_proxy(
-    "https://splendid-gold-dingo.fastmcp.app/mcp",
-    name="Nitish Server Proxy"
+    "https://remote-mcp-server-3ukl.onrender.com",
+    name="Tom Server Proxy"
 )
 
 if __name__ == "__main__":
