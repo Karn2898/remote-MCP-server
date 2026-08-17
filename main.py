@@ -127,6 +127,9 @@ def categories():
 
 # Start the server
 if __name__ == "__main__":
-    import os
-mcp.run(transport="http", host="0.0.0.0", port=int(os.environ.get("PORT", 8000)))
+    import sys
+    if "--http" in sys.argv:
+        mcp.run(transport="http", host="0.0.0.0", port=int(os.environ.get("PORT", 8000)))
+    else:
+        mcp.run(transport="stdio")
     
