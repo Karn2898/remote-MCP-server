@@ -1,6 +1,6 @@
 {
   "mcpServers": {
-    "nitish-server-proxy": {
+    "Tom-server-proxy": {
       "command": "C:/Users/DELL/.local/bin/uv.exe",
       "args": [
         "run",
