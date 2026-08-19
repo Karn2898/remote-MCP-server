@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "nitish-server-proxy": {
+      "command": "C:/Users/DELL/.local/bin/uv.exe",
+      "args": [
+        "run",
+        "--directory",
+        "C:/Users/DELL/remote-MCP-server-1/proxy server",
+        "python",
+        "main.py"
+      ]
+    }
+  }
+}
