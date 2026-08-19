@@ -1,9 +1,8 @@
 from fastmcp import FastMCP
 import os
 
-
 mcp = FastMCP.as_proxy(
-    "https://remote-mcp-server-3ukl.onrender.com",
+  "https://remote-mcp-server-2.onrender.com",
     name="Tom Server Proxy"
 )
 
